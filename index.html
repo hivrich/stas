@@ -5,23 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Intervals.icu · STAS Bot · STAS GPT</title>
 
-  <!-- Only WOFF (as requested) + OTF fallback. Versioned query to bypass cache. -->
-  <link rel="preconnect" href="https://supaform.studio" crossorigin>
-  <link rel="preload" href="https://supaform.studio/SuisseIntl-Book.woff?v=6" as="font" type="font/woff" crossorigin>
-  <link rel="preload" href="https://supaform.studio/SuisseIntl-SemiBold.woff?v=6" as="font" type="font/woff" crossorigin>
+  <!-- PRELOAD локальных шрифтов (ставь файлы рядом с HTML или в /fonts) -->
+  <link rel="preload" href="./SuisseIntl-Book.woff?v=7" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="./SuisseIntl-SemiBold.woff?v=7" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="./fonts/SuisseIntl-Book.woff?v=7" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="./fonts/SuisseIntl-SemiBold.woff?v=7" as="font" type="font/woff" crossorigin>
 
   <style>
-    /* ===== Fonts: WOFF primary, OTF fallback; unified family 'SuisseIntl' ===== */
+    /* ===== Шрифты: многоступенчатый src (локальный путь → /fonts → удалённый) ===== */
     @font-face{
       font-family:'SuisseIntl';
-      src: url('https://supaform.studio/SuisseIntl-Book.woff?v=6') format('woff'),
-           url('https://supaform.studio/SuisseIntl-Book.otf?v=6')  format('opentype');
+      src:
+        url('./SuisseIntl-Book.woff?v=7') format('woff'),
+        url('./fonts/SuisseIntl-Book.woff?v=7') format('woff'),
+        url('/fonts/SuisseIntl-Book.woff?v=7') format('woff'),
+        url('https://supaform.studio/SuisseIntl-Book.woff?v=7') format('woff');
       font-weight:400; font-style:normal; font-display:swap;
     }
     @font-face{
       font-family:'SuisseIntl';
-      src: url('https://supaform.studio/SuisseIntl-SemiBold.woff?v=6') format('woff'),
-           url('https://supaform.studio/SuisseIntl-SemiBold.otf?v=6')  format('opentype');
+      src:
+        url('./SuisseIntl-SemiBold.woff?v=7') format('woff'),
+        url('./fonts/SuisseIntl-SemiBold.woff?v=7') format('woff'),
+        url('/fonts/SuisseIntl-SemiBold.woff?v=7') format('woff'),
+        url('https://supaform.studio/SuisseIntl-SemiBold.woff?v=7') format('woff');
       font-weight:600; font-style:normal; font-display:swap;
     }
 
@@ -54,15 +61,11 @@
 
     /* ===== LAYOUT ===== */
     .container{max-width:1280px;margin:0 auto;padding:50px 24px 64px}
-
     .hero{display:block;margin:20px auto 78px;width:431px;max-width:90vw;height:auto}
 
     /* ===== CARDS ===== */
     .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:116px;justify-content:center}
-    @media (max-width: 900px){
-      .cards{grid-template-columns:1fr;gap:90px;justify-items:center}
-      .card{width:min(380px,92vw)}
-    }
+    @media (max-width: 900px){.cards{grid-template-columns:1fr;gap:90px;justify-items:center}.card{width:min(380px,92vw)}}
 
     .card{display:grid;grid-template-columns:54px 1fr;grid-template-rows:auto auto auto;column-gap:16px;row-gap:20px;align-items:start;text-align:left}
     .icon{grid-column:1;grid-row:1;width:51px;height:51px;border-radius:9999px;overflow:hidden;display:flex;align-items:center;justify-content:center}
@@ -101,7 +104,7 @@
     <img class="hero" src="https://dl.dropboxusercontent.com/scl/fi/4im0fb43rf8pzkt4ebbr8/stspic.png?rlkey=8uyd2670qxktp5px9aswdsf83&dl=0" alt="STAS illustration" />
 
     <section class="cards">
-      <!-- Intervals.icu (fixed icon URL) -->
+      <!-- Intervals.icu -->
       <article class="card">
         <span class="icon"><img src="https://dl.dropboxusercontent.com/scl/fi/a8qzl697z9e8z9ywnutr8/int.png?rlkey=gui7hkfpu93ed3gi5abddh74d&dl=0" alt="Intervals.icu"/></span>
         <div class="title-row">
@@ -122,7 +125,7 @@
           <a class="title" href="https://t.me/stas_assistant_bot">STAS Bot</a>
           <img class="arrow" src="https://dl.dropboxusercontent.com/scl/fi/l5da4hth8jnrtd4gspmrz/str.png?rlkey=syleh2ly4jd0wo5rddi2ppk2s&dl=0" alt="→" />
         </div>
-        <div class="descr" style="max-width:302px">База данных о тебе и твоих тренировках;<br>Собирает и готовит информацию для передачи в ChatGPT.</div>
+        <div class="descr" style="max-width:302px">База данных о тебе и твоих тренировках;<n>Собирает и готовит информацию для передачи в ChatGPT.</div>
         <div class="num">2</div>
         <div class="note">Напиши в боте все свои данные, цели, предпочтения. Пиши отчёты о тренировках — тогда бот будет готовить данные для GPT!</div>
       </article>
