@@ -3,17 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>STAS GPT</title>
+  <title>Intervals.icu · STAS Bot · STAS GPT</title>
+
+  <!-- Preload fonts for mobile (HTTPS + CORS) -->
+  <link rel="preload" href="https://supaform.studio/SuisseIntl-Book.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="https://supaform.studio/SuisseIntl-SemiBold.otf" as="font" type="font/otf" crossorigin>
+
   <style>
-    /* ====== Fonts ====== */
+    /* ====== Fonts (HTTPS; iOS-friendly weights) ====== */
     @font-face{
       font-family:"Suisse Intl";
-      src:url("http://supaform.studio/SuisseIntl-Book.otf") format("opentype");
-      font-weight:450; font-style:normal; font-display:swap;
+      src:url("https://supaform.studio/SuisseIntl-Book.otf") format("opentype");
+      font-weight:400; /* было 450: на iOS 400 надёжнее */
+      font-style:normal; font-display:swap;
     }
     @font-face{
       font-family:"Suisse Intl";
-      src:url("http://supaform.studio/SuisseIntl-SemiBold.otf") format("opentype");
+      src:url("https://supaform.studio/SuisseIntl-SemiBold.otf") format("opentype");
       font-weight:600; font-style:normal; font-display:swap;
     }
 
@@ -31,6 +37,7 @@
       font-family:"Suisse Intl", Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, "Noto Sans", "Helvetica Neue", Helvetica, sans-serif;
       color:var(--text);
       background:var(--bg);
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
 
     /* ======= HEADER (адаптивный) ======= */
@@ -48,14 +55,9 @@
     .hero{display:block;margin:20px auto 78px;width:431px;max-width:90vw;height:auto}
 
     /* ===== CARDS ===== */
-    .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:116px}
-    /* Центрирование карточек на десктопах с большой шириной не требуется, 
-       но оставим возможность центрировать сетку если колонок меньше контейнера */
-    .cards{justify-content:center}
-
+    .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:116px;justify-content:center}
     @media (max-width: 900px){
       .cards{grid-template-columns:1fr;gap:90px;justify-items:center}
-      /* фиксируем ширину карточки и центрируем её как элемент сетки */
       .card{width:min(380px,92vw)}
     }
 
@@ -68,13 +70,13 @@
     .title{display:inline-block;font-size:45px;line-height:1.3;font-weight:600;color:var(--text);text-decoration-line:underline;text-decoration-color:#fff;text-decoration-thickness:5px;text-underline-offset:8px;white-space:nowrap;transition:color .2s ease, text-decoration-color .2s ease}
     .title:hover{color:#fff;text-decoration-color:transparent}
     .arrow{width:28.46px;height:23.98px;flex:0 0 auto}
-    .descr{grid-column:2;grid-row:2;max-width:333px;font-size:18px;line-height:23.4px;font-weight:450}
-    .note{grid-column:2;grid-row:3;max-width:280px;font-size:15px;line-height:19.5px;font-weight:450;color:var(--muted);opacity:.9}
+    .descr{grid-column:2;grid-row:2;max-width:333px;font-size:18px;line-height:23.4px;font-weight:400}
+    .note{grid-column:2;grid-row:3;max-width:280px;font-size:15px;line-height:19.5px;font-weight:400;color:var(--muted);opacity:.9}
 
     /* ======= CTA BUTTONS (bottom) ======= */
     .cta{display:flex;flex-wrap:wrap;gap:7px;align-items:center;justify-content:center;margin-top:154px}
-    .btn{width:300px;height:30px;padding:6px 31px;background:var(--btn);border-radius:4px;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background .2s ease, box-shadow .2s ease;cursor:pointer}
-    .btn span{color:var(--muted);font-size:14px;font-weight:450;line-height:18.2px}
+    .btn{width:255px;height:30px;padding:6px 31px;background:var(--btn);border-radius:4px;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background .2s ease, box-shadow .2s ease;cursor:pointer}
+    .btn span{color:var(--muted);font-size:14px;font-weight:400;line-height:18.2px}
     .btn:hover{background:#ffffff;box-shadow:0 0 0 1px rgba(0,0,0,0.04),0 6px 16px rgba(0,0,0,0.06)}
     @media (max-width: 600px){.btn{width:90%}}
 
@@ -108,7 +110,7 @@
           Синхронизируется с часами;<br>Собирает тренировки;<br>Ведёт календарь;<br>Считает нагрузку и усталость;<br>Показывает аналитику и тренды.
         </div>
         <div class="num">1</div>
-        <div class="note">Подключи часы Garmin, Coros, Polar, Suunto. Не подключайся через Strava и не загружай оттуда тренировки! Это&nbsp;важно.</div>
+        <div class="note">Подключи часы Garmin, Coros, Polar, Suunto. Не подключайся через Strava и не загружай оттуда тренировки! Это важно.</div>
       </article>
 
       <!-- STAS Bot -->
@@ -120,7 +122,7 @@
         </div>
         <div class="descr" style="max-width:302px">База данных о тебе и твоих тренировках;<br>Собирает и готовит информацию для передачи в ChatGPT.</div>
         <div class="num">2</div>
-        <div class="note">Напиши в боте все свои данные, цели, предпочтения. Пиши отчёты о&nbsp;тренировках — тогда бот будет готовить данные для&nbsp;GPT!</div>
+        <div class="note">Напиши в боте все свои данные, цели, предпочтения. Пиши отчёты о тренировках — тогда бот будет готовить данные для GPT!</div>
       </article>
 
       <!-- STAS GPT -->
@@ -130,46 +132,20 @@
           <a class="title" href="https://chatgpt.com/share/68e0009f-02e8-8010-8562-9f3448090841">STAS GPT</a>
           <img class="arrow" src="https://dl.dropboxusercontent.com/scl/fi/l5da4hth8jnrtd4gspmrz/str.png?rlkey=syleh2ly4jd0wo5rddi2ppk2s&dl=0" alt="→" />
         </div>
-        <div class="descr">Специальный чат в ChatGPT;<br>Получает твои данные;<br>Анализирует, строит планы;<br>Выгружает в Intervals и&nbsp;Telegram.</div>
+        <div class="descr">Специальный чат в ChatGPT; Получает твои точные данные; Анализирует, строит планы; Выгружает план в Intervals и Telegram.</div>
         <div class="num">3</div>
         <div class="note">Скопируй из меню бота свой STAS ID и синхронизируй все свои данные с ChatGPT. Достаточно бесплатного тарифа. Enjoy!</div>
       </article>
     </section>
 
-<!-- ======= BOTTOM BUTTONS ======= -->
+    <!-- ======= BOTTOM BUTTONS ======= -->
     <div class="cta" role="group" aria-label="Навигация">
-      <a class="btn" href="http://t.me/stas_support_bot"><span>Поддержка и вопросы</span></a>
-      <a class="btn" href="https://x4digital.com/"><span>Разработка</span></a>
-      <a class="btn" href="https://www.instagram.com/stas.run_/"><span>Instagram</span></a>
-      <a class="btn" href="https://www.threads.com/@stas.run_"><span>Threads</span></a>
+      <a class="btn" href="#support"><span>Поддержка и вопросы</span></a>
+      <a class="btn" href="#dev"><span>Разработка</span></a>
+      <a class="btn" href="#instagram"><span>Instagram</span></a>
+      <a class="btn" href="#threads"><span>Threads</span></a>
     </div>
+
   </main>
-
-  <!-- Yandex.Metrika counter -->
-  <script type="text/javascript">
-    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){
-      (m[i].a=m[i].a||[]).push(arguments)};
-      m[i].l=1*new Date();
-      for (var j = 0; j < document.scripts.length; j++) {
-        if (document.scripts[j].src === r) { return; }
-      }
-      k=e.createElement(t),a=e.getElementsByTagName(t)[0],
-      k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-    })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-    ym(100635480, "init", {
-      clickmap:true,
-      trackLinks:true,
-      accurateTrackBounce:true
-    });
-  </script>
-  <noscript>
-    <div>
-      <img src="https://mc.yandex.ru/watch/100635480" style="position:absolute; left:-9999px;" alt="" />
-    </div>
-  </noscript>
-  <!-- /Yandex.Metrika counter -->
-
-  
 </body>
 </html>
