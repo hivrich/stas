@@ -5,21 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Intervals.icu · STAS Bot · STAS GPT</title>
 
-  <!-- Preload fonts for mobile (HTTPS + CORS) -->
-  <link rel="preload" href="https://supaform.studio/SuisseIntl-Book.otf" as="font" type="font/otf" crossorigin>
-  <link rel="preload" href="https://supaform.studio/SuisseIntl-SemiBold.otf" as="font" type="font/otf" crossorigin>
+  <!-- Preconnect + Preload: WOFF (как просили) -->
+  <link rel="preconnect" href="https://supaform.studio" crossorigin>
+  <link rel="preload" href="https://supaform.studio/SuisseIntl-Book.woff" as="font" type="font/woff" crossorigin>
+  <link rel="preload" href="https://supaform.studio/SuisseIntl-SemiBold.woff" as="font" type="font/woff" crossorigin>
 
   <style>
-    /* ====== Fonts (HTTPS; iOS-friendly weights) ====== */
+    /* ====== Fonts: WOFF + fallback OTF ====== */
     @font-face{
       font-family:"Suisse Intl";
-      src:url("https://supaform.studio/SuisseIntl-Book.otf") format("opentype");
-      font-weight:400; /* было 450: на iOS 400 надёжнее */
-      font-style:normal; font-display:swap;
+      src:url("https://supaform.studio/SuisseIntl-Book.woff") format("woff"),
+          url("https://supaform.studio/SuisseIntl-Book.otf") format("opentype");
+      font-weight:400; font-style:normal; font-display:swap;
     }
     @font-face{
       font-family:"Suisse Intl";
-      src:url("https://supaform.studio/SuisseIntl-SemiBold.otf") format("opentype");
+      src:url("https://supaform.studio/SuisseIntl-SemiBold.woff") format("woff"),
+          url("https://supaform.studio/SuisseIntl-SemiBold.otf") format("opentype");
       font-weight:600; font-style:normal; font-display:swap;
     }
 
@@ -30,6 +32,7 @@
       --white:#FFFFFF;
       --btn:#F1F2F1;
     }
+
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
     body{
@@ -61,15 +64,19 @@
       .card{width:min(380px,92vw)}
     }
 
-    /* Карточка */
+    /* Карточка: сетка 2×3 — слева иконка (row1) и цифра (row3); справа title/descr/note */
     .card{display:grid;grid-template-columns:54px 1fr;grid-template-rows:auto auto auto;column-gap:16px;row-gap:20px;align-items:start;text-align:left}
     .icon{grid-column:1;grid-row:1;width:51px;height:51px;border-radius:9999px;overflow:hidden;display:flex;align-items:center;justify-content:center}
     .icon img{width:100%;height:100%;object-fit:cover}
     .num{grid-column:1;grid-row:3;font-size:45px;line-height:1;font-weight:600;color:#fff;text-align:center}
+
     .title-row{grid-column:2;grid-row:1;display:flex;align-items:center;gap:12px;flex-wrap:nowrap}
-    .title{display:inline-block;font-size:45px;line-height:1.3;font-weight:600;color:var(--text);text-decoration-line:underline;text-decoration-color:#fff;text-decoration-thickness:5px;text-underline-offset:8px;white-space:nowrap;transition:color .2s ease, text-decoration-color .2s ease}
+    .title{display:inline-block;font-size:45px;line-height:1.3;font-weight:600;color:var(--text);
+      text-decoration-line:underline;text-decoration-color:#fff;text-decoration-thickness:5px;text-underline-offset:8px;white-space:nowrap;
+      transition:color .2s ease, text-decoration-color .2s ease}
     .title:hover{color:#fff;text-decoration-color:transparent}
     .arrow{width:28.46px;height:23.98px;flex:0 0 auto}
+
     .descr{grid-column:2;grid-row:2;max-width:333px;font-size:18px;line-height:23.4px;font-weight:400}
     .note{grid-column:2;grid-row:3;max-width:280px;font-size:15px;line-height:19.5px;font-weight:400;color:var(--muted);opacity:.9}
 
